@@ -54,6 +54,7 @@ const CarousalWrapper = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     gap: "10px",
+    flexDirection: "column",
   },
 }));
 

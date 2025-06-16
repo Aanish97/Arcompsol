@@ -1,4 +1,4 @@
-import { FOOTER_LOCATIONS, FOOTER_SECTIONS } from "@/utils";
+import { FOOTER_SECTIONS } from "@/utils";
 import { Box, Button, styled, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,14 +40,15 @@ const Container = styled(Box)(({ theme }) => ({
 const UpperContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "center",
+  alignItems:"center",
   marginBottom: "300px",
   gap: "89px",
+  flexDirection: "column",
 
   [theme.breakpoints.down("md")]: {
     marginBottom: "150px",
     gap: "40px",
-    flexDirection: "column",
   },
 }));
 
@@ -90,6 +91,7 @@ const UpperLeftBottomContainer = styled(Box)(({ theme }) => ({
 const Title = styled(Typography)(({ theme }) => ({
   fontSize: "43px",
   maxWidth: "500px",
+  textAlign:"center",
   color: theme.palette.background.paper,
   fontWeight: 500,
 }));
@@ -279,8 +281,8 @@ const PrimaryFooter = () => {
     <Wrapper>
       <Container>
         <UpperContainer>
-          <UpperLeftContainer>
-            <Title>Love to hear from you, Get in touch!</Title>
+        <Title>Love to hear from you, Get in touch!</Title>
+          {/* <UpperLeftContainer>
             <UpperLeftBottomContainer>
               {FOOTER_LOCATIONS.map((location, index) => (
                 <LocationContainer key={`location-${index}`}>
@@ -297,7 +299,7 @@ const PrimaryFooter = () => {
                 </LocationContainer>
               ))}
             </UpperLeftBottomContainer>
-          </UpperLeftContainer>
+          </UpperLeftContainer> */}
           <Form id="contact-form">
             <InputField value={name} type={"text"} 
             onChange={(e)=> setName(e.target.value)} 
@@ -342,10 +344,24 @@ const PrimaryFooter = () => {
           <SectionContainer>
             <TabHeading>Follow us</TabHeading>
             <SocialIconsContainer>
+            import Link from '@mui/material/Link';
+
+            <Link href="" target="_blank" rel="noopener noreferrer">
               <FacebookIcon />
+            </Link>
+
+            <Link href="#" target="_blank" rel="noopener noreferrer">
               <TwitterIcon fontSize="inherit" color="inherit" />
+            </Link>
+
+            <Link href="https://www.instagram.com/arcompsol?igsh=MWUwdnB4dXNicjAzbQ==" target="_blank" rel="noopener noreferrer">
               <InstagramIcon fontSize="inherit" color="inherit" />
+            </Link>
+
+            <Link href="https://www.linkedin.com/company/86436337/admin/dashboard/" target="_blank" rel="noopener noreferrer">
               <LinkedInIcon fontSize="inherit" color="inherit" />
+            </Link>
+
             </SocialIconsContainer>
           </SectionContainer>
         </BottomWrapper>

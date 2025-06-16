@@ -5,14 +5,14 @@ import GenericWrapper from "../genericComponents/GenericWrapper";
 import { theme } from "@/muiConfig/theme";
 
 const Container = styled(Box)(({ theme }) => ({
-  width: "calc(100% - 40px)",
+  width: "100%",
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
   padding: "75px 20px 100px",
   [theme.breakpoints.down("sm")]: {
     padding: "50px 15px",
-    width: "calc(100% - 30px)",
+    width: "100%",
   },
 }));
 
