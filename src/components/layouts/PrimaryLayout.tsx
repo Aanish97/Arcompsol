@@ -6,6 +6,7 @@ import { ReactElement, useState } from "react";
 import PrimaryLogo from "../icons/PrimaryLogo";
 import MenuIcon from "@mui/icons-material/Menu";
 import PrimaryFooter from "./PrimaryFooter";
+import { colors } from "@/styles/colors";
 
 interface PrimaryLayoutProps {
   children: ReactElement;
@@ -19,6 +20,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   width: "100vw",
   height: "100vh",
   overflowY: "scroll",
+  overflowX: "hidden",
   display: "flex",
   flexDirection: "column",
 }));
@@ -27,34 +29,39 @@ const HeaderWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   display: "flex",
   justifyContent: "center",
-  boxShadow:
-    "0px 21px 80px rgba(122, 117, 117, 0.05), 0px 2.62953px 10.0172px rgba(122, 117, 117, 0.025)",
+  backgroundColor: "rgba(255, 255, 255, 0.95)",
+  borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
+  backdropFilter: "blur(12px)",
+  position: "sticky",
+  top: 0,
+  zIndex: theme.zIndex.appBar,
 }));
 
 const Header = styled(Box)(({ theme }) => ({
-  maxWidth: "1444px",
+  maxWidth: "1000px",
   width: "100%",
   display: "flex",
-  padding: "25px 126px",
+  padding: "16px 32px",
   alignItems: "center",
   justifyContent: "space-between",
+  minHeight: "64px",
 
   [theme.breakpoints.down("lg")]: {
-    padding: "25px 50px",
+    padding: "16px 24px",
   },
 
   [theme.breakpoints.down("md")]: {
-    padding: "25px",
+    padding: "12px 20px",
   },
 }));
 
 const LargeSrceenTabsContainer = styled(Box)(({ theme }) => ({
   display: "flex",
-  gap: "33px",
+  gap: "32px",
   alignItems: "center",
 
   [theme.breakpoints.down("md")]: {
-    gap: "15px",
+    gap: "24px",
   },
 
   [theme.breakpoints.down("sm")]: {
@@ -62,14 +69,42 @@ const LargeSrceenTabsContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Tab = styled(Link)<TabProps>(({ theme, isselected }) => ({
-  fontWeight: isselected==="true" ? 600 : 500,
-  fontSize: "16px",
-  lineHeight: "24px",
-  color: isselected==="true"
-    ? theme.palette.common.blueWhale
-    : theme.palette.common.dimGray,
+const Tab = styled(Link)<TabProps & { isletstalktab?: string }>(({ theme, isselected, isletstalktab }) => ({
+  fontSize: "15px",
+  fontWeight: isselected==="true" ? 500 : 400,
+  color: isletstalktab === "true" ? "white" : (isselected==="true"
+    ? theme.palette.text.primary
+    : theme.palette.text.secondary),
   textDecoration: "none",
+  padding: isletstalktab === "true" ? "8px 16px" : "8px 0",
+  borderRadius: isletstalktab === "true" ? "8px" : "0",
+  background: isletstalktab === "true" ? "#38B089" : "transparent",
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  position: "relative",
+  transform: "scale(1)",
+  
+  "&:hover": {
+    color: isletstalktab === "true" ? "white" : theme.palette.text.primary,
+    background: isletstalktab === "true" ? "#03432E" : "transparent",
+    transform: isletstalktab === "true" ? "scale(1.05)" : "scale(1)",
+    boxShadow: isletstalktab === "true" ? "0 4px 12px rgba(3, 67, 46, 0.3)" : "none",
+  },
+  
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    bottom: "-1px",
+    left: "0",
+    width: (isselected==="true" && isletstalktab !== "true") ? "100%" : "0%",
+    height: "1px",
+    backgroundColor: theme.palette.text.primary,
+    transition: "width 0.2s ease",
+    display: isletstalktab === "true" ? "none" : "block",
+  },
+  
+  "&:hover::after": {
+    width: isletstalktab === "true" ? "0%" : "100%",
+  },
 }));
 
 const Content = styled(Box)(({ theme }) => ({
@@ -87,18 +122,26 @@ const MuiDrawer = styled(Drawer)(({ theme }) => ({
 
 const DrawerContainer = styled(Box)(({ theme }) => ({
   height: "100vh",
-  minWidth: "250px",
-  padding: "40px 20px",
+  minWidth: "280px",
+  padding: "32px 24px",
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
-  overflow: "scroll",
+  gap: "24px",
+  overflow: "auto",
+  backgroundColor: "white",
 }));
 
 const DrawerButton = styled(Button)(({ theme }) => ({
-  padding: 0,
-  color: theme.palette.common.black,
-  fontSize: "20px",
+  padding: "8px",
+  minWidth: "auto",
+  color: theme.palette.text.primary,
+  borderRadius: "4px",
+  transition: "all 0.2s ease",
+  
+  "&:hover": {
+    backgroundColor: "rgba(0, 0, 0, 0.04)",
+  },
+  
   [theme.breakpoints.up("sm")]: {
     display: "none",
   },
@@ -130,28 +173,48 @@ const PrimaryLayout = ({ children }: PrimaryLayoutProps) => {
     },
   ];
 
+  const handleScrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const getTabs = () => {
     const router = useRouter();
     
+    // Filter tabs based on current route - show Services only on home page
+    const visibleTabs = TABS.filter(tab => {
+      if (tab.label === "Services" && router.pathname !== '/') {
+        return false;
+      }
+      return true;
+    });
+    
     return (
       <>
-        {TABS.map((tab) => {
+        {visibleTabs.map((tab) => {
           if (tab.route.startsWith('#')) {
-            if(router.pathname === '/careers' && tab.route === '#services') {
-                  return <a 
-                  key={tab.route}
-                  href={tab.route} style={{textDecoration: 'none', fontWeight: '500', fontSize:'16px', color: '#656161', display: 'none'}}>{tab.label}</a>
-            }
+            const sectionId = tab.route.substring(1); // Remove the # symbol
             return (
-                
-                <a 
-                key={tab.route} 
-                href={tab.route} style={{textDecoration: 'none', fontWeight: '500', fontSize:'16px', color: '#656161'}}>{tab.label}</a>
+              <Tab
+                isselected="false"
+                isletstalktab="false"
+                key={tab.route}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleScrollToSection(sectionId);
+                }}
+              >
+                {tab.label}
+              </Tab>
             );
           } else {
             return (
               <Tab
                 isselected={`${router.pathname === tab.route}`}
+                isletstalktab={`${tab.label === "Let's Talk"}`}
                 key={tab.route}
                 href={tab.route}
               >

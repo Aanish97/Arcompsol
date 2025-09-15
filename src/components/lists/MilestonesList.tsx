@@ -2,6 +2,7 @@ import { Box, styled, Typography } from "@mui/material";
 import GenericWrapper from "../genericComponents/GenericWrapper";
 import CirclesSquare from "../icons/CirclesSquare";
 import MilestoneFlag from "../icons/MilestoneFlag";
+import { colors } from "@/styles/colors";
 
 interface MileStoneProps {
   titleColor: String;
@@ -20,94 +21,168 @@ interface ColorProps {
 }
 
 const Wrapper = styled(Box)(({ theme }) => ({
-  width: "calc(100% - 40px)",
+  width: "100%",
+  maxWidth: "1200px",
+  margin: "0 auto",
   display: "flex",
   flexDirection: "column",
-  padding: "70px 20px",
+  padding: "100px 32px",
   position: "relative",
+
+  [theme.breakpoints.down("lg")]: {
+    padding: "80px 24px",
+  },
+
+  [theme.breakpoints.down("md")]: {
+    padding: "40px 40px",
+  },
 }));
 
 const Title = styled(Typography)<ColorProps>(({ theme, milestonecolor }) => ({
-  fontSize: "40px",
-  fontWeight: 700,
+  fontSize: "48px",
+  fontWeight: 600,
   color: `${milestonecolor}`,
-  margin: "0px auto 20px",
+  margin: "0 auto 24px",
+  textAlign: "center",
+  letterSpacing: "-0.02em",
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: "36px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "28px",
+  },
 }));
 
 const Description = styled(Typography)<ColorProps>(
   ({ theme, milestonecolor }) => ({
-    fontSize: "21px",
+    fontSize: "18px",
     fontWeight: 400,
     color: `${milestonecolor}`,
-    margin: "0px auto 76px",
-    maxWidth: "1056px",
+    margin: "0 auto 80px",
+    maxWidth: "700px",
     textAlign: "center",
+    lineHeight: 1.6,
+    opacity: 0.9,
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "16px",
+      margin: "0 auto 60px",
+    },
   })
 );
 
 const ListWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  maxWidth: "1170px",
+  maxWidth: "1200px",
   margin: "0 auto",
-  display: "flex",
-  flexDirection: "column",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+  gap: "24px",
+  alignItems: "start",
+
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "20px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
+    gap: "16px",
+  },
 }));
 
 const ListItemWrapper = styled(Box)<ListComponentsProps>(
-  ({ theme, iseven }) => ({
+  ({ theme }) => ({
     width: "100%",
-    maxWidth: "1170px",
+    height: "310px",
     display: "flex",
-    gap: "51px",
-    height: "250px",
-    flexDirection: iseven==="true" ? "row" : "row-reverse",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "20px",
+    padding: "24px",
+    background: "linear-gradient(135deg, rgba(56, 176, 137, 0.08) 0%, rgba(3, 67, 46, 0.05) 100%)",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+    borderRadius: "16px",
+    border: `1px solid rgba(56, 176, 137, 0.2)`,
+    boxShadow: "0 4px 20px rgba(56, 176, 137, 0.1)",
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    position: "relative",
+    overflow: "hidden",
+    textAlign: "center",
+
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "linear-gradient(135deg, rgba(56, 176, 137, 0.05) 0%, rgba(3, 67, 46, 0.02) 100%)",
+      borderRadius: "inherit",
+      pointerEvents: "none",
+    },
+
+    "&:hover": {
+      transform: "translateY(-4px)",
+      boxShadow: "0 8px 30px rgba(56, 176, 137, 0.15)",
+      background: "linear-gradient(135deg, rgba(56, 176, 137, 0.12) 0%, rgba(3, 67, 46, 0.08) 100%)",
+      borderColor: "rgba(56, 176, 137, 0.3)",
+    },
 
     [theme.breakpoints.down("md")]: {
-      flexDirection: "row-reverse",
-      height: "auto",
-      gap: "20px",
+      padding: "20px",
+      height: "290px",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      height: "270px",
     },
   })
 );
 
 const ListItemIntroContainer = styled(Box)<ListComponentsProps>(
-  ({ theme, iseven }) => ({
-    width: "calc(50% - 93px)",
+  ({ theme }) => ({
+    flex: 1,
     display: "flex",
     flexDirection: "column",
-    gap: "8px",
-    alignItems: iseven==="true" ? "flex-end" : "flex-start",
-
-    [theme.breakpoints.down("md")]: {
-      width: "auto",
-      alignItems: "flex-start",
-      marginBottom: "50px",
-    },
+    gap: "12px",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    zIndex: 1,
+    height: "100%",
   })
 );
 
 const ListItemHeading = styled(Typography)<ListComponentsProps>(
-  ({ theme, iseven, milestonecolor }) => ({
-    fontSize: "22px",
-    fontWeight: 700,
-    color: `${milestonecolor}`,
-    textAlign: iseven==="true" ? "right" : "left",
+  ({ theme, milestonecolor }) => ({
+    fontSize: "20px",
+    fontWeight: 600,
+    color: colors.textPrimary,
+    textAlign: "center",
+    letterSpacing: "-0.01em",
+    marginBottom: "8px",
 
     [theme.breakpoints.down("md")]: {
-      textAlign: "left",
+      fontSize: "18px",
     },
   })
 );
 
 const ListItemDescription = styled(Typography)<ListComponentsProps>(
-  ({ theme, iseven, milestonecolor }) => ({
-    fontSize: "20px",
+  ({ theme, milestonecolor }) => ({
+    fontSize: "14px",
     fontWeight: 400,
-    color: `${milestonecolor}`,
-    textAlign: iseven==="true" ? "right" : "left",
+    color: colors.textSecondary,
+    textAlign: "center",
+    lineHeight: 1.6,
+    opacity: 0.9,
 
     [theme.breakpoints.down("md")]: {
-      textAlign: "left",
+      fontSize: "13px",
     },
   })
 );
@@ -115,28 +190,48 @@ const ListItemDescription = styled(Typography)<ListComponentsProps>(
 const FlagAndBorderConatiner = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  flexDirection: "column",
-  height: "100%",
+  justifyContent: "center",
+  flexShrink: 0,
+  order: -1,
 }));
 
-const Border = styled(Box)(({ theme, borderColor }) => ({
-  height: "calc(100% - 84px)",
-  border: `1px dashed ${theme.palette.common.deepSkyBlue}`,
+const StepNumber = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  fontSize: "16px",
+  fontWeight: 600,
+  color: "white",
+  zIndex: 2,
 
   [theme.breakpoints.down("md")]: {
-    display: "none",
+    fontSize: "14px",
   },
 }));
 
 const FlagIconWrapper = styled(Box)(({ theme }) => ({
-  width: "84px",
-  height: "84px",
+  width: "60px",
+  height: "60px",
   borderRadius: "50%",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background:
-    "linear-gradient(135deg, rgba(0, 225, 231, 0.5) 0%, rgba(95, 65, 217, 0.5) 100%);",
+  background: colors.primaryGradient,
+  boxShadow: "0 4px 16px rgba(56, 176, 137, 0.3)",
+  position: "relative",
+  transition: "all 0.3s ease",
+  flexShrink: 0,
+
+  "&:hover": {
+    transform: "scale(1.05)",
+    boxShadow: "0 6px 20px rgba(56, 176, 137, 0.4)",
+  },
+
+  [theme.breakpoints.down("md")]: {
+    width: "50px",
+    height: "50px",
+  },
 }));
 
 const RightCircles = styled(CirclesSquare)(({ theme, circleColor }) => ({
@@ -211,27 +306,21 @@ const MilestonesList = ({
         </Description>
         <ListWrapper>
           {MILESTONS.map((milestone, index) => {
-            const iseven = index % 2 === 0;
-            const isLast = index === MILESTONS.length - 1;
             return (
-              <ListItemWrapper iseven={`${iseven}`} key={index}>
-                <ListItemIntroContainer iseven={`${iseven}`}>
-                  <ListItemHeading iseven={`${iseven}`} milestonecolor={titleColor}>
+              <ListItemWrapper key={index}>
+                <FlagAndBorderConatiner>
+                  <FlagIconWrapper>
+                    <StepNumber>{index + 1}</StepNumber>
+                  </FlagIconWrapper>
+                </FlagAndBorderConatiner>
+                <ListItemIntroContainer>
+                  <ListItemHeading milestonecolor={titleColor}>
                     {milestone.heading}
                   </ListItemHeading>
-                  <ListItemDescription
-                    iseven={`${iseven}`}
-                    milestonecolor={descColor}
-                  >
+                  <ListItemDescription milestonecolor={descColor}>
                     {milestone.description}
                   </ListItemDescription>
                 </ListItemIntroContainer>
-                <FlagAndBorderConatiner>
-                  <FlagIconWrapper>
-                    <MilestoneFlag />
-                  </FlagIconWrapper>
-                  {!isLast && <Border />}
-                </FlagAndBorderConatiner>
               </ListItemWrapper>
             );
           })}

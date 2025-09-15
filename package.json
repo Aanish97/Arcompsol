@@ -25,6 +25,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-material-ui-carousel": "^3.4.2",
+    "react-phone-number-input": "^3.4.12",
     "react-scroll": "^1.8.9",
     "typescript": "5.0.2",
     "url-loader": "^4.1.1"

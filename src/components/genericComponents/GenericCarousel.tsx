@@ -11,6 +11,7 @@ import {
 import { LeftArrowIcon, RightArrowIcon } from "../icons/CarousalArrows";
 import Avatar from "@mui/material/Avatar";
 import VectorImg from "../../../public/images/vector.png";
+import { colors } from "@/styles/colors";
 
 interface BlogPost {
   heading?: string;
@@ -52,6 +53,7 @@ const CarousalWrapper = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     gap: "10px",
+    flexDirection: "column",
   },
 }));
 
@@ -63,8 +65,10 @@ const BlogsCarousalCardWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  background: "rgba(217, 217, 217, 0.1)",
-  borderRadius: "65px",
+  background: `linear-gradient(135deg, ${colors.backgroundSecondary} 0%, ${colors.backgroundPrimary} 100%)`,
+  borderRadius: "24px",
+  border: `1px solid ${colors.borderLight}`,
+  boxShadow: `0 8px 32px -4px rgba(0, 0, 0, 0.15)`,
 }));
 
 const BlogsCarousal = styled(Carousel)(({ theme }) => ({
@@ -81,26 +85,50 @@ const BlogsCarousal = styled(Carousel)(({ theme }) => ({
 }));
 
 const CardCarousel = styled(Card)(({ theme }) => ({
-  padding: "80px",
-  borderRadius: "10px",
+  padding: "48px",
+  borderRadius: "16px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  gap: "40px",
+  alignItems: "center",
+  gap: "24px",
+  background: `linear-gradient(135deg, ${colors.backgroundPrimary} 0%, ${colors.backgroundSecondary} 100%)`,
+  border: `1px solid ${colors.borderLight}`,
+  boxShadow: `0 12px 24px -4px rgba(0, 0, 0, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.1)`,
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  position: "relative",
+  overflow: "hidden",
+  
+  "&:hover": {
+    transform: "translateY(-4px)",
+    boxShadow: `0 20px 40px -8px rgba(0, 0, 0, 0.15), 0 12px 24px -8px rgba(0, 0, 0, 0.1)`,
+  },
 
   [theme.breakpoints.down("sm")]: {
-    padding: "20px",
-    gap: "20px",
+    padding: "32px 24px",
+    gap: "16px",
   },
 }));
 
 const CarousalCardButton = styled(Button)(({ theme }) => ({
   width: "264px",
-  padding: "10px 0px",
+  padding: "12px 24px",
   fontSize: "16px",
-  fontWeight: 900,
-  color: "#2F91E0",
+  fontWeight: 600,
+  background: `linear-gradient(135deg, ${colors.primaryBlue} 0%, ${colors.primaryDark} 100%)`,
+  color: colors.backgroundPrimary,
   lineHeight: "125%",
+  borderRadius: "8px",
+  border: "none",
+  textTransform: "none",
+  transition: "all 0.3s ease",
+  
+  "&:hover": {
+    background: `linear-gradient(135deg, ${colors.primaryDark} 0%, ${colors.primaryBlue} 100%)`,
+    transform: "translateY(-2px)",
+    boxShadow: `0 8px 16px -4px rgba(0, 0, 0, 0.15)`,
+  },
+  
   [theme.breakpoints.down("sm")]: {
     width: "100%",
   },
@@ -108,40 +136,65 @@ const CarousalCardButton = styled(Button)(({ theme }) => ({
 
 const CarousalCardSecondButton = styled(Button)(({ theme }) => ({
   width: "264px",
-  fontSize: "22px",
-  padding: "10px 0px",
-  fontWeight: 500,
-  color: "#4F84B7",
-  lineHeight: "33px",
+  fontSize: "18px",
+  padding: "12px 24px",
+  fontWeight: 600,
+  background: "transparent",
+  color: colors.primaryBlue,
+  lineHeight: "1.4",
   textAlign: "center",
-  letterSpacing: "0.05em",
+  letterSpacing: "0.025em",
+  border: `2px solid ${colors.primaryBlue}`,
+  borderRadius: "8px",
+  textTransform: "none",
+  transition: "all 0.3s ease",
+  
+  "&:hover": {
+    background: colors.primaryBlue,
+    color: colors.backgroundPrimary,
+    transform: "translateY(-2px)",
+    boxShadow: `0 8px 16px -4px rgba(0, 0, 0, 0.15)`,
+  },
+  
   [theme.breakpoints.down("sm")]: {
     width: "100%",
+    fontSize: "16px",
   },
 }));
 
 const CarousalCardContent = styled(Typography)(({ theme }) => ({
-  width: "264px",
-  fontSize: "16px",
-  fontWeight: 600,
-  color: "#423D51",
-  lineHeight: "150%",
+  width: "100%",
+  maxWidth: "280px",
+  fontSize: "20px",
+  fontWeight: 700,
+  background: `linear-gradient(135deg, ${colors.primaryBlue} 0%, ${colors.primaryDark} 100%)`,
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
+  lineHeight: "1.4",
   textAlign: "center",
+  marginBottom: "8px",
+  
   [theme.breakpoints.down("sm")]: {
-    width: "50vw",
+    fontSize: "18px",
+    maxWidth: "100%",
   },
 }));
 
 const CarousalCardSubContent = styled(Typography)(({ theme }) => ({
-  width: "372px",
+  width: "100%",
+  maxWidth: "320px",
   fontSize: "16px",
   fontWeight: 400,
-  color: "rgba(0, 0, 0, 0.36)",
-  lineHeight: "24px",
-  textAlign: "justify",
-  letterSpacing: "0.05em",
+  color: colors.textSecondary,
+  lineHeight: "1.6",
+  textAlign: "center",
+  letterSpacing: "0.01em",
+  marginBottom: "16px",
+  
   [theme.breakpoints.down("sm")]: {
-    width: "100%",
+    fontSize: "14px",
+    maxWidth: "100%",
   },
 }));
 
