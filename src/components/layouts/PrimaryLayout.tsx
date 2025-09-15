@@ -194,7 +194,7 @@ const PrimaryLayout = ({ children }: PrimaryLayoutProps) => {
     return (
       <>
         {visibleTabs.map((tab) => {
-          if (tab.route.startsWith('#')) {
+          if (tab.route && tab.route.startsWith('#')) {
             const sectionId = tab.route.substring(1); // Remove the # symbol
             return (
               <Tab
@@ -210,7 +210,7 @@ const PrimaryLayout = ({ children }: PrimaryLayoutProps) => {
                 {tab.label}
               </Tab>
             );
-          } else {
+          } else if (tab.route) {
             return (
               <Tab
                 isselected={`${router.pathname === tab.route}`}
@@ -221,6 +221,8 @@ const PrimaryLayout = ({ children }: PrimaryLayoutProps) => {
                 {tab.label}
               </Tab>
             );
+          } else {
+            return null;
           }
         })}
       </>

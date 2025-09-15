@@ -16,24 +16,13 @@ export const FOOTER_SECTIONS = [
     tabs: [
       {
         label: "App Development",
-        route: "/",
+        route: null,
+        clickable: false,
       },
       {
         label: "Cloud Solutions",
-        route: "/",
-      },
-    ],
-  },
-  {
-    heading: "Resources",
-    tabs: [
-      {
-        label: "Case studies",
-        route: "/",
-      },
-      {
-        label: "Blogs",
-        route: "/",
+        route: null,
+        clickable: false,
       },
     ],
   },
@@ -41,24 +30,26 @@ export const FOOTER_SECTIONS = [
     heading: "Company",
     tabs: [
       {
+        label: "Home",
+        route: "/",
+        clickable: true,
+      },
+      {
+        label: "Careers",
+        route: "/careers",
+        clickable: true,
+      },
+      {
         label: "About Us",
-        route: "/",
-      },
-      {
-        label: "Contact Us",
-        route: "/",
-      },
-      {
-        label: "Privacy Policy",
-        route: "/",
-      },
-      {
-        label: "Terms of Service",
-        route: "/",
+        route: "/about",
+        clickable: true,
       },
     ],
   },
 ];
+
+export const COMPANY_SERVICES = []
+
 
 export const FOOTER_LOCATIONS = [
   {

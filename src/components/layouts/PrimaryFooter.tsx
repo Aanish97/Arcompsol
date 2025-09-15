@@ -1,18 +1,14 @@
-import { FOOTER_SECTIONS } from "@/utils";
+import { FOOTER_SECTIONS, TabObject } from "@/utils";
 import { Box, Button, styled, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { LogoWhite } from "../../../public/images";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import CircularProgress from '@mui/material/CircularProgress';
-import { colors } from "@/styles/colors";
 import PhoneInput from 'react-phone-number-input';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-
-import FacebookIcon from "../icons/FacebookIcon";
 import axios from "axios";
 import { useState } from "react";
 
@@ -352,7 +348,6 @@ const SocialIconsContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   fontSize: "29px",
   gap: "15px",
-  color: theme.palette.background.paper,
 }));
 
 const InputContainer = styled(Box)(({ theme }) => ({
@@ -634,26 +629,41 @@ const PrimaryFooter = () => {
               <SectionContainer key={`section-${section.heading}`}>
                 <TabHeading>{section.heading}</TabHeading>
                 <TabsContainer>
-                  {section.tabs.map((tab) => (
-                    <Tab key={`tab-${tab.label}`} href={tab.route}>
-                      {tab.label}
-                    </Tab>
+                  {section.tabs.map((tab: TabObject) => (
+                    tab.clickable !== false && tab.route ? (
+                      <Tab 
+                        key={`tab-${tab.label}`} 
+                        href={tab.route}
+                        onClick={() => {
+                          if (tab.route && !tab.route.startsWith('#')) {
+                            window.location.href = tab.route;
+                          }
+                        }}
+                      >
+                        {tab.label}
+                      </Tab>
+                    ) : (
+                      <Typography
+                        key={`tab-${tab.label}`}
+                        sx={{
+                          fontWeight: 400,
+                          fontSize: "14px",
+                          color: "rgba(255, 255, 255, 0.8)",
+                          cursor: "default"
+                        }}
+                      >
+                        {tab.label}
+                      </Typography>
+                    )
                   ))}
                 </TabsContainer>
               </SectionContainer>
             ))}
+
           </SectionsWrapper>
           <SectionContainer>
             <TabHeading>Follow us</TabHeading>
             <SocialIconsContainer>
-            <Link href="" target="_blank" rel="noopener noreferrer">
-              <FacebookIcon />
-            </Link>
-
-            <Link href="#" target="_blank" rel="noopener noreferrer">
-              <TwitterIcon fontSize="inherit" color="inherit" />
-            </Link>
-
             <Link href="https://www.instagram.com/arcompsol?igsh=MWUwdnB4dXNicjAzbQ==" target="_blank" rel="noopener noreferrer">
               <InstagramIcon fontSize="inherit" color="inherit" />
             </Link>
