@@ -14,8 +14,6 @@ import {
 } from "../../public/images";
 import { theme } from "@/muiConfig/theme";
 import { colors } from "@/styles/colors";
-import BlogsCarousel from "@/components/genericComponents/GenericCarousel";
-import { BLOGSLIST } from "@/components/lists/BlogsList";
 import FeedbackCarousel from "@/components/genericComponents/FeedbackCarousel";
 import { FEEDBACK_LIST } from "@/components/lists/FeedbacksList";
 
@@ -38,8 +36,8 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
-    padding: "50px 20px",
-    margin: "0 12px",
+    padding: "30px 30px",
+    margin: "0px",
   },
 }))
 
@@ -166,10 +164,10 @@ const FeedbackCarousalWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   maxWidth: "1200px",
   margin: "0 auto",
-  padding: "80px 32px",
+  padding: "0px 32px",
   display: "flex",
   flexDirection: "column",
-  gap: "48px",
+  gap: "0px",
   backgroundColor: "white",
 
   [theme.breakpoints.down("md")]: {

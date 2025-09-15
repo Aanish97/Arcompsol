@@ -20,6 +20,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   width: "100vw",
   height: "100vh",
   overflowY: "scroll",
+  overflowX: "hidden",
   display: "flex",
   flexDirection: "column",
 }));

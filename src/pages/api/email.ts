@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getEmailContent } from "@/utils";
 import { SMTPClient } from "emailjs";
+import { SMTP_EMAIL, SMTP_TOKEN } from "@/utils/constants";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,9 +11,9 @@ export default async function handler(
   const { email, subject, body, name, mobile } = req.body;
 
   const client = new SMTPClient({
-    user: "salman.khan@arcompsol.com",
-    password: "arcompsol",
-    host: "mail.privateemail.com",
+    user: SMTP_EMAIL,
+    password: SMTP_TOKEN,
+    host: "smtp.gmail.com",
     port: 465,
     ssl: true,
   });
@@ -23,7 +24,7 @@ export default async function handler(
       text: getEmailContent(name, mobile, body),
       from: "support@arcompsol.com",
       to: ["support@arcompsol.com", email],
-      cc: ["aanishamir@gmail.com"],
+      cc: ["aanishamir@gmail.com", "ashartaqi12@gmail.com"],
       subject: `${subject} - Contact Form Submission`,
     });
 

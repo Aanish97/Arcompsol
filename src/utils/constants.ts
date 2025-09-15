@@ -1,3 +1,7 @@
+export const SMTP_EMAIL = process.env.SMTP_EMAIL;
+export const SMTP_TOKEN = process.env.SMTP_TOKEN;
+
+
 export const ROUTES = {
   HOME: "/",
   SERVICES: "#services",

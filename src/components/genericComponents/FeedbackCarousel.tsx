@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from "react";
+import { useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import {
   Typography,
@@ -66,6 +66,12 @@ const BlogsCarousalCardWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
+  
+  "&:nth-of-type(2)": {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
 }));
 
 const BlogsCarousal = styled(Carousel)(({ theme }) => ({
@@ -75,10 +81,7 @@ const BlogsCarousal = styled(Carousel)(({ theme }) => ({
   padding: "40px",
   display: "flex",
   justifyContent: "center",
-
-  [theme.breakpoints.down("md")]: {
-    padding: "40px 20px",
-  },
+  height: "100% !important",
 }));
 
 const CardCarousel = styled(Card)(({ theme }) => ({
@@ -89,16 +92,19 @@ const CardCarousel = styled(Card)(({ theme }) => ({
   justifyContent: "flex-start",
   gap: "10px",
   padding: "30px 21px",
+  minHeight: "280px",
+  height: "100%",
 
   [theme.breakpoints.down("sm")]: {
     padding: "20px 10px",
+    minHeight: "250px",
   },
 }));
 
 const CarousalCardButton = styled(Button)(({ theme }) => ({
   width: "264px",
   padding: "10px 0px",
-  fontSize: "16px",
+  fontSize: "14px",
   fontWeight: 900,
   color: "#2F91E0",
   lineHeight: "125%",
@@ -116,6 +122,8 @@ const CarousalCardSecondButton = styled(Button)(({ theme }) => ({
   lineHeight: "33px",
   textAlign: "center",
   letterSpacing: "0.05em",
+  display: "block",
+  visibility: "visible",
   [theme.breakpoints.down("sm")]: {
     width: "100%",
   },
@@ -123,7 +131,7 @@ const CarousalCardSecondButton = styled(Button)(({ theme }) => ({
 
 const CarousalCardContent = styled(Typography)(({ theme }) => ({
   width: "264px",
-  fontSize: "16px",
+  fontSize: "10px",
   fontWeight: 600,
   color: "#423D51",
   lineHeight: "150%",
@@ -145,14 +153,8 @@ const Name = styled(Typography)(({ theme }) => ({
   fontSize: "20px",
   lineHeight: "24px",
   color: "#011736",
-}));
-
-const Feedback = styled(Typography)(({ theme }) => ({
-  fontStyle: "italic",
-  fontWeight: "500",
-  fontSize: "18px",
-  lineHeight: "34px",
-  color: "#1b1b1c",
+  fontFamily: "inherit",
+  margin: 0,
 }));
 
 const FeedbackCarousel = ({ carouselList }: CarouselProps) => {
@@ -183,20 +185,20 @@ const FeedbackCarousel = ({ carouselList }: CarouselProps) => {
           <CardCarousel>
             <ImageNameContainer>
               <Avatar>
-                <Image alt="Client Image" src={listItem.avatar} fill/>
+                <Image alt="Client Image" src={listItem.avatar} fill />
               </Avatar>
               <Box>
-              <Link sx={{textDecoration: 'none'}} href={listItem?.social}>
+              <Link sx={{textDecoration: 'none'}}>
                 
               <Name>{listItem?.name}</Name>
               </Link>
-              <Link sx={{textDecoration: 'none', color: '#1b1b1c'}} href={listItem?.social}>
+              <Link sx={{textDecoration: 'none', color: '#1b1b1c'}}>
 
-              <Typography sx={{fontSize: "18px", fontWeight: '500'}}>{listItem?.organiztion}</Typography>
+              <Typography sx={{fontSize: "16px", fontWeight: '500'}}>{listItem?.organiztion}</Typography>
               </Link>
               </Box>
             </ImageNameContainer>
-            <Feedback>{listItem.text}</Feedback>
+            <Typography sx={{fontSize: "16px", fontWeight: '500'}}>{listItem.text}</Typography>
           </CardCarousel>
         </BlogsCarousalCardWrapper>
         <BlogsCarousalCardWrapper>
@@ -204,25 +206,20 @@ const FeedbackCarousel = ({ carouselList }: CarouselProps) => {
             <CardCarousel>
               <ImageNameContainer>
                 <Avatar>
-                <Image alt="Client Image" src={nextListItem?.avatar} fill/>
-
+                  <Image alt="Client Image" src={nextListItem?.avatar} fill />
                 </Avatar>
-                <Box >
-                  <Link sx={{textDecoration: 'none'}} href={nextListItem?.social}>
+                <Box>
+                  <Link sx={{textDecoration: 'none'}}>
                     <Name>{nextListItem?.name}</Name>
                   </Link>
-                  <Link sx={{textDecoration: 'none' , color: '#1b1b1c'}} href={nextListItem?.social}>
+                  <Link sx={{textDecoration: 'none' , color: '#1b1b1c'}}>
 
-                  <Typography  sx={{fontSize: "18px", fontWeight: '500'}}>{nextListItem?.organiztion}</Typography>
+                  <Typography  sx={{fontSize: "16px", fontWeight: '500'}}>{nextListItem?.organiztion}</Typography>
                   </Link>
-
                 </Box>
-
-
-
               </ImageNameContainer>
 
-              <Feedback>{nextListItem.text}</Feedback>
+              <Typography  sx={{fontSize: "16px", fontWeight: '500'}}>{nextListItem.text}</Typography>
             </CardCarousel>
           )}
         </BlogsCarousalCardWrapper>
@@ -236,7 +233,8 @@ const FeedbackCarousel = ({ carouselList }: CarouselProps) => {
         animation="fade"
         indicators={false}
         index={activeIndex}
-        autoPlay={false}
+        autoPlay={true}
+        interval={5000}
         onChange={handleCarouselChange}
       >
         {items}

@@ -34,7 +34,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
-    padding: "60px 20px",
+    padding: "40px 40px",
   },
 }));
 
