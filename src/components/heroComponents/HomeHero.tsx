@@ -1,103 +1,120 @@
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
+import { ReactElement } from "react";
 import { HomeHeroImage } from "../../../public/images";
-import GenericWrapper from "../genericComponents/GenericWrapper";
 import { theme } from "@/muiConfig/theme";
+import { colors } from "@/styles/colors";
+import GenericWrapper from "../genericComponents/GenericWrapper";
 
 const Container = styled(Box)(({ theme }) => ({
   width: "100%",
+  maxWidth: "1000px",
+  margin: "0 auto",
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
-  padding: "75px 20px 100px",
-  [theme.breakpoints.down("sm")]: {
-    padding: "50px 15px",
-    width: "100%",
+  padding: "120px 32px 80px",
+  gap: "48px",
+  minHeight: "80vh",
+  
+  [theme.breakpoints.down("md")]: {
+    padding: "80px 24px 60px",
+    gap: "32px",
+    minHeight: "70vh",
   },
 }));
 
-const Title = styled(Typography)(({ theme }) => ({
-  fontWeight: 500,
-  fontSize: "36px",
-  lineHeight: "150%",
+const Subtitle = styled(Typography)(({ theme }) => ({
+  fontSize: "18px",
+  fontWeight: 400,
   textAlign: "center",
-  maxWidth: "592px",
-  marginBottom: "23px",
-  color: theme.palette.common.dimGray,
-
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "28px",
-    lineHeight: "130%",
+  maxWidth: "500px",
+  color: theme.palette.text.secondary,
+  letterSpacing: "0.01em",
+  lineHeight: 1.5,
+  
+  [theme.breakpoints.down("md")]: {
+    fontSize: "16px",
+    maxWidth: "400px",
   },
 }));
 
-const Heading = styled(Typography)(({ theme }) => ({
-  background:
-    "linear-gradient(90deg, #26EFAE 1.08%, rgba(2, 40, 28, 0.99) 107.35%)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  backgroundClip: "text",
-  textFillColor: "transparentont-weight",
-  fontSize: "53px",
-  lineHeight: "170%",
+const MainHeading = styled(Typography)(({ theme }) => ({
+  fontSize: "64px",
+  fontWeight: 600,
   textAlign: "center",
-  maxWidth: "620px",
-  marginBottom: "25px",
-  fontWeight: 800,
-
+  maxWidth: "800px",
+  color: theme.palette.text.primary,
+  letterSpacing: "-0.02em",
+  lineHeight: 1.1,
+  
+  [theme.breakpoints.down("md")]: {
+    fontSize: "48px",
+    lineHeight: 1.2,
+  },
+  
   [theme.breakpoints.down("sm")]: {
     fontSize: "36px",
-    lineHeight: "130%",
   },
 }));
 
 const ImageWrapper = styled(Box)(({ theme }) => ({
+  width: "100%",
+  maxWidth: "600px",
+  height: "400px",
   position: "relative",
-  width: "767px",
-  height: "526px",
+  borderRadius: "0",
+  overflow: "visible",
+  background: "transparent",
 
   [theme.breakpoints.down("md")]: {
-    width: "90vw",
-    height: "61.92vw",
+    height: "300px",
+    maxWidth: "500px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    height: "250px",
   },
 }));
 
 const Description = styled(Typography)(({ theme }) => ({
+  fontSize: "20px",
   fontWeight: 400,
-  fontSize: "17px",
   textAlign: "center",
-  maxWidth: "400px",
-  marginBottom: "90px",
-  color: theme.palette.common.black,
-
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "14px",
-    marginBottom: "50px",
+  maxWidth: "600px",
+  color: theme.palette.text.secondary,
+  lineHeight: 1.6,
+  
+  [theme.breakpoints.down("md")]: {
+    fontSize: "18px",
+    maxWidth: "500px",
   },
 }));
 
-const GetStartedButton = styled(Button)(({ theme }) => ({
-  width: "187px",
-  height: "58",
-  [theme.breakpoints.down("sm")]: {
-    width: "100%",
-  },
-}));
+
 
 const HomeHero = () => {
   return (
     <GenericWrapper backgroundcolor={theme.palette.common.white}>
       <Container>
-        <Title>Building products services & everything in between</Title>
-        <Heading>Power Your Business </Heading>
-        <ImageWrapper>
-          <Image src={HomeHeroImage} alt="Arcompsol Home" fill />
-        </ImageWrapper>
+        <Subtitle>Building products, services & everything in between</Subtitle>
+        <MainHeading>Power Your Business with Innovation</MainHeading>
         <Description>
-          We help brands make better marketing decisions by delivering
-          world-class, scalable insights
+          We help brands make better decisions by delivering world-class, scalable solutions that drive growth and success.
         </Description>
-        <GetStartedButton variant="primary">Get Started</GetStartedButton>
+        <ImageWrapper>
+          <Image
+            fill
+            alt="Hero Image"
+            src={HomeHeroImage}
+            style={{ 
+              objectFit: "contain",
+              background: "transparent",
+              mixBlendMode: "multiply"
+            }}
+          />
+        </ImageWrapper>
+
       </Container>
     </GenericWrapper>
   );

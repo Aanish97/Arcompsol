@@ -1,7 +1,9 @@
 import { Typography, styled, Box, Button } from "@mui/material";
 import PexelsPhoto from "../../public/images/pexels-photo-by-sora-shimazaki.png";
 import { BENEFITS, QUALITIES } from "@/utils";
-import { CURRENT_OPENINGS } from "@/components/lists/OpeningsList";
+import { CURRENT_OPENINGS, JobOpening } from "@/components/lists/OpeningsList";
+import JobCard from "@/components/genericComponents/JobCard";
+import { colors } from "@/styles/colors";
 import Divider from "@mui/material/Divider";
 import Title from "@/components/genericComponents/Title";
 import Description from "@/components/genericComponents/Description";
@@ -147,46 +149,40 @@ const OpeningsTitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
-const OpeningsWrappeer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  gap: "100px",
-  justifyContent: "space-around",
-  textAlign: "left",
+const JobCardsGrid = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+  gap: "32px",
   marginTop: "40px",
   marginBottom: "40px",
-
+  
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gap: "24px",
+  },
+  
   [theme.breakpoints.down("sm")]: {
-    gap: "15px",
+    gridTemplateColumns: "1fr",
+    gap: "20px",
   },
 }));
 
-const SectionContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-}));
-
-const TabHeading = styled(Typography)(({ theme }) => ({
-  fontWeight: "700",
-  fontSize: "20px",
-  textTransform: "uppercase",
-  color: "rgba(0, 0, 0, 0.42)",
-}));
-
-const TabsContainer = styled(Box)(({ theme }) => ({
+const JobsSection = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: "40px",
+  gap: "24px",
 }));
 
-const Tab = styled(Typography)(({ theme }) => ({
-  fontWeight: "400",
-  fontSize: "20px",
-  color: "#1E2D44",
-  textDecoration: "none",
-}));
-
-const OpeningsDivider = styled(Divider)(({ theme }) => ({
-  border: "2px solid rgba(0, 0, 0, 0.42)",
+const JobsSectionTitle = styled(Typography)(({ theme }) => ({
+  fontSize: "18px",
+  fontWeight: 600,
+  color: colors.textPrimary,
+  marginBottom: "16px",
+  textAlign: "center",
+  
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "16px",
+  },
 }));
 
 const OpeningsOuterWrappeer = styled(Box)(({ theme }) => ({
@@ -275,6 +271,8 @@ const CareerPage = () => {
               key={index}
               title={quality.heading}
               content={quality.description}
+              variant="elevated"
+              size="medium"
             />
           ))}
         </QualitiesContainer>
@@ -286,23 +284,27 @@ const CareerPage = () => {
       <OpeningsContainer id="openings">
         <OpeningsTitle>Current Openings</OpeningsTitle>
         <OpeningsOuterWrappeer>
-          <OpeningsWrappeer>
-            {CURRENT_OPENINGS.map((opening, index) => (
-              <SectionContainer key={`opening-${index}`}>
-                <TabHeading>{opening.heading}</TabHeading>
-              </SectionContainer>
-            ))}
-          </OpeningsWrappeer>
-          <OpeningsDivider />
-          <OpeningsWrappeer>
-            {CURRENT_OPENINGS.map((opening, index) => (
-              <TabsContainer key={index}>
-                {opening.tabs.map((tab, index) => (
-                  <Tab key={`tab-${index}`}>{tab.label}</Tab>
-                ))}
-              </TabsContainer>
-            ))}
-          </OpeningsWrappeer>
+          <JobsSection>
+            <JobsSectionTitle>
+              Join our team and work on exciting projects with cutting-edge technologies
+            </JobsSectionTitle>
+            <JobCardsGrid>
+              {CURRENT_OPENINGS.map((job: JobOpening) => (
+                <JobCard
+                  key={job.id}
+                  title={job.title}
+                  team={job.team}
+                  location={job.location}
+                  description={job.description}
+                  onApply={() => {
+                    // Handle job application
+                    console.log(`Applying for ${job.title}`);
+                    // You can add navigation to application form or email functionality here
+                  }}
+                />
+              ))}
+            </JobCardsGrid>
+          </JobsSection>
         </OpeningsOuterWrappeer>
       </OpeningsContainer>
     </>
